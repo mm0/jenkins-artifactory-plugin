@@ -81,8 +81,9 @@ public class MavenGradleEnvExtractor {
 
     private void addPipelineInfoToConfiguration(FilePath ws, EnvVars env, ArtifactoryClientConfiguration configuration) {
         FilePath tempFile = getGeneratedBuildInfoPath(ws);
-        env.put(BuildInfoFields.GENERATED_BUILD_INFO, tempFile.getRemote());
-        configuration.info.setGeneratedBuildInfoFilePath(tempFile.getRemote());
+        String overridePath = env.get(BuildInfoFields.GENERATED_BUILD_INFO, tempFile.getRemote());
+        env.put(BuildInfoFields.GENERATED_BUILD_INFO, overridePath);
+        configuration.info.setGeneratedBuildInfoFilePath(overridePath);
     }
 
     private FilePath getGeneratedBuildInfoPath(FilePath ws) {
